@@ -36,18 +36,22 @@ RUN set -ex \
 
 COPY config /usr/share/elasticsearch/config
 
-VOLUME /usr/share/elasticsearch/data
-
 COPY docker-entrypoint.sh /
 
-RUN wget https://download.elastic.co/kibana/kibana/kibana-4.3.0-linux-x64.tar.gz \
-  && cd /usr/share \
-  && tar -xzf /kibana-4.3.0-linux-x64.tar.gz \
+WORKDIR /root
+
+RUN wget https://download.elastic.co/kibana/kibana/kibana-4.3.0-linux-x64.tar.gz
+
+WORKDIR /usr/share
+
+RUN tar -xzf /root/kibana-4.3.0-linux-x64.tar.gz \
   && ln -s kibana-4.3.0-linux-x64 kibana \
   && cd /bin \
   && ln -s /usr/share/kibana/bin/kibana kibana \
   && cd / \
   && kibana plugin --install elastic/sense
+
+VOLUME /usr/share/elasticsearch/data
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
