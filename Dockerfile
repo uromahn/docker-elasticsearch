@@ -11,7 +11,7 @@ RUN arch="$(dpkg --print-architecture)" \
 RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 
 ENV ELASTICSEARCH_MAJOR 2.1
-ENV ELASTICSEARCH_VERSION 2.1.0
+ENV ELASTICSEARCH_VERSION 2.1.1
 ENV ELASTICSEARCH_REPO_BASE http://packages.elastic.co/elasticsearch/2.x/debian
 
 RUN echo "deb $ELASTICSEARCH_REPO_BASE stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
